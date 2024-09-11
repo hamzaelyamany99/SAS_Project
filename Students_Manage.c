@@ -21,7 +21,7 @@ struct  student stud[100];
 void    add_student(){
     int select;
     int i;
-        for (i=0 ; i<=counter; i++){
+        for (i=0 ; i <= counter; i++){
             printf("Student number:%d\n", id);
             printf("Enter the student's first name: ");
             scanf(" %[^\n]s", &stud[counter].first_name);
@@ -39,22 +39,20 @@ void    add_student(){
                     switch (select)
                     {
                     case 1:
-                        stud[i].depart[10] = svt;
+                        strcpy(stud[counter].depart, svt);
                         break;
                     case 2:
-                        stud[counter].depart[10] = pc;
+                        strcpy(stud[counter].depart, pc);
                         break;
                     case 3:
-                        stud[counter].depart[10] =  math;
+                        strcpy(stud[counter].depart, math);
                         break;
-                    default:
-                    break;
                     }
             printf("Enter the student's generale mark:\n");
             scanf("%f",&stud[counter].mark);
             }
             counter++;
-            id = stud[counter].uniqId;
+            stud[counter].uniqId = id;;
             id++;
             main();
 }
@@ -116,6 +114,7 @@ void    affiche(){
         printf("Birth :%s\n", stud[i].birth);
         printf("Department :%s \n", stud[i].depart);
         printf("General Mark :%.2f \n", stud[i].mark);
+        printf("**************************************\n");
     }
     main();
 }
