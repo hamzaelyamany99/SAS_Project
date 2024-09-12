@@ -14,36 +14,7 @@
     struct  student stud[100]; // structure variable
         int counter = 0;// counter to count students
         int id = 0  ;// to store students ID
-void    calc(){
-     char T[20][50];
-     int countDep=0;
-     int stocker = 0;
-     float somme = 0;
-     int lengthDep = 0;
-        for (int i = 0; i < counter; i++){
-            for (int j = 0; j < i; j++){
-                if (strcmp(stud[i].depart, stud[j].depart) == 0){
-                stocker = 1;
-                break;
-                }
-            }
-                if (!stocker){
-                      strcpy(T[countDep], stud[i].depart);
-                      countDep++;
-                }
-        }
 
-        for (int i = 0; i < countDep; i++){
-            for (int j = 0; j < counter; j++){
-                if (strcmp(T[i], stud[j].depart) == 0){
-                    somme += stud[j].mark;
-                    lengthDep++;
-                }
-            }
-        printf("Department %s = %.2f \n",stud[i].depart,somme / lengthDep);
-        }
-        main();
-}
 void    first_menu(){ // function to show the menu of elements
         printf("################--------MENU------###################\n");
         printf("#   1 - Ajouter un Etudiant                         #\n");
@@ -138,7 +109,7 @@ void    affiche(){
         main();//Go back to the main to chose new selection from the menu
     }
 void    del(){
-int del;//To store the the student Id
+        int del;//To store the the student Id
         if(counter == 0)// No student added yet
         {
             printf("---------------------------------------------\n");
@@ -166,7 +137,6 @@ void    find(){
         char name[20];//to store the name to be founded
         char dep[20];//to store the department to be founded
         int select;//store the user selection
-        int N=0;
             printf("------------------------\n");
             printf("1. Search by last name.\n");
             printf("2. Search by department.\n");
@@ -204,7 +174,6 @@ void    find(){
                         printf("        Department :%s \n", stud[i].depart);
                         printf("        General Mark :%.2f \n", stud[i].mark);
                         printf("*******************************************************\n");
-                    N++;
                 }
                     else
                         printf("--------------Not found-------------\n");
@@ -213,88 +182,57 @@ void    find(){
         }
         main();
 }
-void stats(){
+void    stats(){
     int choice;//To store the selected
-    char depS[20];
-    char depR[20];
-    int N=1,C=1,X=1;
-    float S=0,temp=0;
-    char T[20][50];
-    int countDep=0;
-    int stocker = 0;
-    float somme = 0;
-    int lengthDep = 0;
+    int C=1;//counter
+    float S=0,temp=0;//S = threshold, temp = store before swap
 
-            printf("-----+++++++--------------------------+++++++-------------\n");
-            printf("1. Afficher le nombre total d'etudiants inscrits.\n");
-            printf("2. Afficher le nombre d'etudiants dans chaque departement.\n");
-            printf("3. Afficher les etudiants ayant une moyenne generale superieure a un certain seuil.\n");
-            printf("4. Afficher les 3 etudiants ayant les meilleures notes.\n");
-            printf("5. Afficher le nombre d'etudiants ayant reussi dans chaque departement.\n");
-            printf("6. Retour.\n");
-            printf("-----------------------+++++++-------------------+++++++--\n");
+            printf("-----+++++++--------------------------+++++++-----------------------+-\n");// Stats menu
+            printf("    1. Afficher le nombre total d'etudiants inscrits.\n");
+            printf("    2. Afficher le nombre d'etudiants dans chaque departement.\n");
+            printf("    3. Afficher les etudiants ayant une moyenne generale superieure a un certain seuil.\n");
+            printf("    4. Afficher les 3 etudiants ayant les meilleures notes.\n");
+            printf("    5. Afficher le nombre d'etudiants ayant reussi dans chaque departement.\n");
+            printf("    6. Retour.\n");
+            printf("-----------------------+++++++-------------------+++++++--------------\n");
             printf("Enter votre choix: ");
-            scanf("%d",&choice);
+            scanf("%d",&choice);//store selection to "choice"
                 switch(choice){
                 case 1:
-                    printf("Total students number  : %d.\n",counter);
-                    stats();
+                    printf("Total students number  : %d.\n",counter);// List the total number of students
+                    stats();//Go back the stats menu
                     break;
-                case 2:
-                    for (int i = 0; i < counter; i++){
-                        for (int j = 0; j < i; j++){
-                            if (strcmp(stud[i].depart, stud[j].depart) == 0){
-                            stocker = 1;
-                            break;
-                            }
-                        }
-                    if (!stocker){
-                          printf("%s\n", stud[i].depart);
-                          strcpy(T[countDep], stud[i].depart);
-                          countDep++;
-                        }
-                    }
-                    for (int i = 0; i < countDep; i++){
-                        for (int j = 0; j < counter; j++){
-                                if (strcmp(T[i], stud[j].depart) == 0){
-                                    somme += stud[j].mark;
-                                    lengthDep++;
-                                }
-                        }
-                    }
-                    for (int i=0;i<countDep;i++)
-                    printf("Department %s = %.2f \n: ", stud[i].depart, somme / lengthDep);
-                break;
                 case 3:
-                    printf("Entrez le seuil :");
-                    scanf("%f",&S);
+                    printf("Enter the threshold :");
+                    scanf("%f",&S);//Store the threshold in S
                     for (int i=0;i<counter;i++){
-                        if(stud[i].mark>=S){
-                            printf("\t\t--Etudiant-- %d :\n",C);
+                        if(stud[i].mark >= S){//Check if the students mark greater or equal the S value
+                            printf("\t\t--Student-- %d :\n",C);//Show the students who have mark greater or equal S
                                     printf("******** Student Id :%d\n", stud[i].Id);
-                                    printf("Student first name :%s\n", stud[i].first_name);
-                                    printf("Student last name :%s\n", stud[i].last_name);
-                                    printf("Birth :%s\n", stud[i].birth);
-                                    printf("Department :%s \n", stud[i].depart);
-                                    printf("General Mark :%.2f \n", stud[i].mark);
+                                    printf("    Student first name :%s\n", stud[i].first_name);
+                                    printf("    Student last name :%s\n", stud[i].last_name);
+                                    printf("    Birth :%s\n", stud[i].birth);
+                                    printf("    Department :%s \n", stud[i].depart);
+                                    printf("    General Mark :%.2f \n", stud[i].mark);
                                     printf("**************************************\n");
                             C++;
                         }
                     }
+                    stats();//Go back the stats menu
                     break;
                 case 4:
-                    for(int i =0;i<counter;i++){
+                    for(int i =0;i<counter;i++){// two loops to cover all the possibilies
                         for(int j=0;j<counter;j++){
-                            if(stud[j].mark < stud[j+1].mark){
+                            if(stud[j].mark < stud[j+1].mark){// Doing the Swap technique to sort marks
                                 temp = stud[j].mark;
                                 stud[j].mark = stud[j+1].mark;
                                 stud[j+1].mark = temp;
                             }
                         }
                     }
-                    for(int i=0;i<3;i++){
+                    for(int i=0;i<3;i++){//start with i=0 and i<3 to show only first 3
                         printf("\n");
-                        printf("\t\t--Student-- %d :\n",i+1);
+                        printf("\t\t--Student-- %d :\n",i+1);// start the loop with the new order
                                     printf("******** Student Id :%d\n", stud[i].Id);
                                     printf("Student first name :%s\n", stud[i].first_name);
                                     printf("Student last name :%s\n", stud[i].last_name);
@@ -303,25 +241,27 @@ void stats(){
                                     printf("General Mark :%.2f \n", stud[i].mark);
                                     printf("**************************************\n");
                     }
+                    stats();//Go back the stats menu
                     break;
                 case 5:
                     for (int i =0;i<counter;i++){
-                        if(stud[i].mark >= 10){
-                            printf("================================");
-                            printf("Student : %s",stud[i].first_name);
-                            printf("Student : %s",stud[i].last_name);
+                        if(stud[i].mark >= 10){//condition to include only who have equal or greater than 10
+                            printf("================================\n");
+                            printf("Student : %s\n",stud[i].first_name);
+                            printf("Student : %s\n",stud[i].last_name);
                             printf("Mark : %.2f",stud[i].mark);
-                            printf("================================");
+                            printf("================================\n");
                         }
                     }
+                   stats();//Go back the stats menu
                 case 6:
-                    main();
+                    main();//Go back to main menu
                     break;
                 }
 }
-    int main(){
-        int i, choice;
-
+int main(){
+    int choice;
+    
     do{
         printf("#####################################################\n");
         printf("#   1 - Ajouter un Etudiant                         #\n");
@@ -348,9 +288,9 @@ void stats(){
         case 4:
             affiche();
             break;
-        case 5:
-            calc();
-            break;
+        //case 5:
+            //calc();
+            //break;
         case 6:
           stats();
             break;
@@ -366,4 +306,4 @@ void stats(){
 
     }while(!(choice >= 1 && choice <= 8));
     return 0;
-    }
+}
