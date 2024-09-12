@@ -3,26 +3,33 @@
 #include <string.h>
 
 struct student{
-    int    uniqId;
+    int    Id;
     char    first_name[10];
     char    last_name[10];
     char    birth[10];
     float   mark;
     char    depart[10];
 };
-    char    svt[] = "SVT";
-    char    pc[] = "PC";
-    char    math[] = "MATH";
 
 struct  student stud[100];
     int counter = 0;
-    int id = 1;
+    int id = 0  ;
 
+void    first_menu(){
+    printf("################--------MENU------###################\n");
+    printf("#   1 - Ajouter un Etudiant                         #\n");
+    printf("#   2 - Modifier un Etudiant                        #\n");
+    printf("#   3 - supprimer un Etudiant                       #\n");
+    printf("#   4 - Afficher les details d'un Etudiant          #\n");
+    printf("#   5 - Calculer la moyenne generale                #\n");
+    printf("#   6 - Statistiques                                #\n");
+    printf("#   7 - Rechercher un Etudiant                      #\n");
+    printf("#   8 - Trier un Etudiant                           #\n");
+    printf("#####################################################\n");
+    }
 void    add_student(){
-    int select;
-    int i;
-        for (i=0 ; i <= counter; i++){
-            printf("Student number:%d\n", id);
+
+            printf("Student number:%d\n", counter+1);
             printf("Enter the student's first name: ");
             scanf(" %[^\n]s", &stud[counter].first_name);
             printf("Enter the student's last name: ");
@@ -30,72 +37,54 @@ void    add_student(){
             printf("Enter the student's birth by this form [dd/mm/yy]: ");
             scanf(" %[^\n]s", &stud[counter].birth);
             printf("Select the department:\n");
-            printf("************  SELECT    **********\n");
-            printf("*            1 - SVT             *\n");
-            printf("*            2 - PC              *\n");
-            printf("*            3 - MATH            *\n");
-            printf("**********************************\n");
-                scanf("%d", &select);
-                    switch (select)
-                    {
-                    case 1:
-                        strcpy(stud[counter].depart, svt);
-                        break;
-                    case 2:
-                        strcpy(stud[counter].depart, pc);
-                        break;
-                    case 3:
-                        strcpy(stud[counter].depart, math);
-                        break;
-                    }
+            scanf("%s",&stud[counter].depart);
             printf("Enter the student's generale mark:\n");
             scanf("%f",&stud[counter].mark);
-            }
+            stud[counter].Id = ++id;
             counter++;
-            stud[counter].uniqId = id;;
-            id++;
             main();
 }
 void    modify(){
-    int i;
+    int select;
     int numb;
-    int dpp;
 
-    i = 0;
-
-    while(numb<=id){
-    printf("Enter the student number: ");
+    printf("Enter the student Id: ");
     scanf("%d",&numb);
-        if(numb == stud[counter].uniqId){
-                printf("Enter the student's first name: ");
-                scanf(" %[^\n]s", &stud[counter].first_name);
-                printf("Enter the student's last name: ");
-                scanf(" %[^\n]s", &stud[counter].last_name);
-                printf("Enter the student's birth by this form [dd/mm/yy]: ");
-                scanf(" %[^\n]s", &stud[counter].birth);
-                printf("Select the department:\n");
-                printf("************  SELECT    **********\n");
-                printf("*            1 - SVT             *\n");
-                printf("*            2 - PC              *\n");
-                printf("*            3 - MATH            *\n");
-                printf("**********************************\n");
-                scanf("%d", &dpp);
-                    switch (dpp)
-                    {
-                            case 1:
-                                stud[counter].depart[10] = "SVT";
-                                break;
-                            case 2:
-                                stud[counter].depart[10] = "PC";
-                                break;
-                            case 3:
-                                stud[counter].depart[10] = "MATH";
-                                break;
-                            default:
+        for(int i=0; i<counter; i++){
+            if(stud[i].Id - numb == 0){
+                printf("1 # Modify the student's first name: \n", stud[counter].first_name);
+                printf("2 # Modify the student's last name: \n", stud[counter].last_name);
+                printf("3 # Modify the student's birth by this form [dd/mm/yy]: \n", stud[counter].birth);
+                printf("4 # Modify the department:\n", stud[counter].depart);
+                printf("5 # Modify the student's generale mark:\n", stud[counter].mark);
+                printf("***********************************************************\n");
+                printf("Select from the menu");
+                scanf("%d",&select);
+                        switch (select)
+                        {
+                        case 1:
+                            printf("Enter the student's first name:");
+                            scanf(" %[^\n]s", &stud[i].first_name);
                             break;
-                    }
+                        case 2:
+                            printf("Enter the student's last name:");
+                            scanf(" %[^\n]s", &stud[i].last_name);
+                            break;
+                        case 3:
+                            printf("Enter the student's day of birth:");
+                            scanf(" %[^\n]s", &stud[i].birth);
+                            break;
+                        case 4:
+                            printf("Enter the student's department:");
+                            scanf(" %[^\n]s", &stud[i].depart);
+                            break;
+                        case 5:
+                            printf("Enter the student's general mark:");
+                            scanf(" %[^\n]s", &stud[i].mark);
+                            break;
+                        }
+
                 }
-            i++;
         }
         main();
 }
@@ -108,7 +97,8 @@ void    affiche(){
         printf("\n");
     }
     for(i=0; i<counter ;i++){
-        printf("Student number :%d\n", stud[i].uniqId + 1);
+        printf("------------------------------------------\n");
+        printf("*********Student Id :%d\n", stud[i].Id);
         printf("Student first name :%s\n", stud[i].first_name);
         printf("Student last name :%s\n", stud[i].last_name);
         printf("Birth :%s\n", stud[i].birth);
@@ -117,6 +107,41 @@ void    affiche(){
         printf("**************************************\n");
     }
     main();
+}
+void    stats(){
+    int c;
+    do{
+    printf("#####################---------STATISTIQUES-----------################\n");
+    printf("#   1 - Le nombre total d'étudiants inscrits                        #\n");
+    printf("#   2 - Le nombre d'étudiants dans chaque département               #\n");
+    printf("#   3 - Les étudiants ayant une moyenne générale supérieure à...    #\n");
+    printf("#   4 - Les 3 étudiants ayant les meilleures notes                  #\n");
+    printf("#   5 - Le nombre d'étudiants ayant réussi dans chaque département  #\n");
+    printf("#####################################################################\n");
+
+    scanf("%d",&c);
+    switch (c)
+    {
+    case 1:
+        printf("%d", counter);
+        break;
+    case 2:
+        for(int j=0 ; j<counter; j++){
+            for(int i=0 ; i<counter; i++){
+                printf("%s",stud[counter].depart);
+            }}
+        break;
+    case 3:
+        break;
+    case 4:
+        break;
+    case 5:
+        break;
+    default:
+        break;
+    }
+
+}while(!(c >= 1 && c <= 5));
 }
 int main(){
     int i, choice;
@@ -129,10 +154,9 @@ do{
     printf("#   4 - Afficher les details d'un Etudiant          #\n");
     printf("#   5 - Calculer la moyenne generale                #\n");
     printf("#   6 - Statistiques                                #\n");
-    printf("#   7 - Rechercher un Etudiant par                  #\n");
+    printf("#   7 - Rechercher un Etudiant                      #\n");
     printf("#   8 - Trier un Etudiant                           #\n");
     printf("#####################################################\n");
-
     scanf("%d",&choice);
     switch (choice)
     {
@@ -148,6 +172,18 @@ do{
     case 4:
         affiche();
         break;
+    /*case 5:
+        calc();
+        break;*/
+    case 6:
+        stats();
+        break;
+    //case 7:
+      //  find();
+        //break;
+    /*case 8:
+        sort();
+        break;*/
     default:
         break;
     }
