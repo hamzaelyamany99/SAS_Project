@@ -1,8 +1,8 @@
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <string.h>
+#include <stdio.h>//contains functions for input/output printf() and scanf()
+#include <stdlib.h>//Memory Allocation/Freeing
+#include <string.h>//contains functions for manipulating strings
 
-    struct student{
+    struct student{//stucture contains variables to store student information
         int    Id; // student unique ID
         char    first_name[10]; //first name
         char    last_name[10];// last name
@@ -15,18 +15,6 @@
         int counter = 0;// counter to count students
         int id = 0  ;// to store students ID
 
-void    first_menu(){ // function to show the menu of elements
-        printf("################--------MENU------###################\n");
-        printf("#   1 - Ajouter un Etudiant                         #\n");
-        printf("#   2 - Modifier un Etudiant                        #\n");
-        printf("#   3 - supprimer un Etudiant                       #\n");
-        printf("#   4 - Afficher les details d'un Etudiant          #\n");
-        printf("#   5 - Calculer la moyenne generale                #\n");
-        printf("#   6 - Statistiques                                #\n");
-        printf("#   7 - Rechercher un Etudiant                      #\n");
-        printf("#   8 - Trier un Etudiant                           #\n");
-        printf("#####################################################\n");
-        }
 void    add_student(){// function helps to add student
 
                 printf("Student number:%d\n", counter+1);
@@ -88,7 +76,7 @@ void    modify(){//function to modify a function by the Id number
             }
             main();// Go back to the main to chose new selection from the menu
     }
-void    affiche(){
+void    affiche(){//list all the students information
         int i;
 
         if(counter == 0)// No student added yet
@@ -108,7 +96,7 @@ void    affiche(){
         }
         main();//Go back to the main to chose new selection from the menu
     }
-void    del(){
+void    del(){//Delete student
         int del;//To store the the student Id
         if(counter == 0)// No student added yet
         {
@@ -133,7 +121,7 @@ void    del(){
   }
   main();//Go back to the main to chose new selection from the menu
 }
-void    find(){
+void    find(){//find student by last name or by department
         char name[20];//to store the name to be founded
         char dep[20];//to store the department to be founded
         int select;//store the user selection
@@ -182,24 +170,25 @@ void    find(){
         }
         main();
 }
-void    stats(){
+void    stats(){//some statistics
     int choice;//To store the selected
     int C=1;//counter
     float S=0,temp=0;//S = threshold, temp = store before swap
 
             printf("-----+++++++--------------------------+++++++-----------------------+-\n");// Stats menu
             printf("    1. Afficher le nombre total d'etudiants inscrits.\n");
-            printf("    2. Afficher le nombre d'etudiants dans chaque departement.\n");
+            printf("     . Afficher le nombre d'etudiants dans chaque departement.\n");
             printf("    3. Afficher les etudiants ayant une moyenne generale superieure a un certain seuil.\n");
             printf("    4. Afficher les 3 etudiants ayant les meilleures notes.\n");
             printf("    5. Afficher le nombre d'etudiants ayant reussi dans chaque departement.\n");
             printf("    6. Retour.\n");
             printf("-----------------------+++++++-------------------+++++++--------------\n");
-            printf("Enter votre choix: ");
+            printf("Enter your selection: ");
             scanf("%d",&choice);//store selection to "choice"
+            printf("-----------------------+++++++-------------------+++++++--------------\n");
                 switch(choice){
                 case 1:
-                    printf("Total students number  : %d.\n",counter);// List the total number of students
+                    printf("Total students number  : %d\n",counter);// List the total number of students based on the counter
                     stats();//Go back the stats menu
                     break;
                 case 3:
@@ -221,16 +210,16 @@ void    stats(){
                     stats();//Go back the stats menu
                     break;
                 case 4:
-                    for(int i =0;i<counter;i++){// two loops to cover all the possibilies
+                    for(int i =0;i<counter;i++){// two loops to cover all the possibilities
                         for(int j=0;j<counter;j++){
                             if(stud[j].mark < stud[j+1].mark){// Doing the Swap technique to sort marks
-                                temp = stud[j].mark;
-                                stud[j].mark = stud[j+1].mark;
-                                stud[j+1].mark = temp;
+                                temp = stud[j].mark;//store the first mark in an int called temp
+                                stud[j].mark = stud[j+1].mark;//store next mark value in the previous one
+                                stud[j+1].mark = temp;//take the temp value and put it in the second value
                             }
                         }
                     }
-                    for(int i=0;i<3;i++){//start with i=0 and i<3 to show only first 3
+                    for(int i=0;i<3;i++){//loop to display * start with i=0 and i<3 to show only first 3
                         printf("\n");
                         printf("\t\t--Student-- %d :\n",i+1);// start the loop with the new order
                                     printf("******** Student Id :%d\n", stud[i].Id);
@@ -244,8 +233,8 @@ void    stats(){
                     stats();//Go back the stats menu
                     break;
                 case 5:
-                    for (int i =0;i<counter;i++){
-                        if(stud[i].mark >= 10){//condition to include only who have equal or greater than 10
+                    for (int i =0;i<counter;i++){//loop to check all students based on the counter
+                        if(stud[i].mark >= 10){//condition to include and display only who have equal or greater than 10
                             printf("================================\n");
                             printf("Student : %s\n",stud[i].first_name);
                             printf("Student : %s\n",stud[i].last_name);
@@ -254,6 +243,7 @@ void    stats(){
                         }
                     }
                    stats();//Go back the stats menu
+                   break;
                 case 6:
                     main();//Go back to main menu
                     break;
@@ -261,17 +251,16 @@ void    stats(){
 }
 int main(){
     int choice;
-    
+
     do{
         printf("#####################################################\n");
         printf("#   1 - Ajouter un Etudiant                         #\n");
         printf("#   2 - Modifier un Etudiant                        #\n");
         printf("#   3 - supprimer un Etudiant                       #\n");
         printf("#   4 - Afficher les details d'un Etudiant          #\n");
-        printf("#   5 - Calculer la moyenne generale                #\n");
+        printf("#   - - Calculer la moyenne generale                #\n");
         printf("#   6 - Statistiques                                #\n");
         printf("#   7 - Rechercher un Etudiant                      #\n");
-        printf("#   8 - Trier un Etudiant                           #\n");
         printf("#####################################################\n");
         scanf("%d",&choice);
         switch (choice)
@@ -292,18 +281,15 @@ int main(){
             //calc();
             //break;
         case 6:
-          stats();
+            stats();
             break;
         case 7:
             find();
             break;
-        /*case 8:
-            sort();
-            break;*/
         default:
             break;
         }
 
-    }while(!(choice >= 1 && choice <= 8));
+    }while(!(choice >= 1 && choice <= 7));
     return 0;
 }
